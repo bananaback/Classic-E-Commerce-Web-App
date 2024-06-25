@@ -1,0 +1,65 @@
+﻿@using System.Security.Claims
+
+@{
+    string? pictureUrl = null;
+    pictureUrl = User.FindFirst("picture")?.Value;
+}
+
+<nav class="tw-bg-white tw-shadow">
+    <div class="tw-mx-auto tw-max-w-7xl tw-px-2 sm:tw-px-4 lg:tw-px-8">
+        <div class="tw-flex tw-h-16 tw-justify-between tw-items-center">
+            <div class="tw-flex tw-px-2 lg:tw-px-0">
+                <div class="tw-flex-shrink-0 tw-flex tw-items-center">
+                    <img class="tw-block tw-h-8 tw-w-auto lg:tw-hidden" src="~/images/circle_bananaback.png" alt="ClassicECom">
+                    <img class="tw-hidden tw-h-8 tw-w-auto lg:tw-block" src="~/images/circle_bananaback.png" alt="ClassicECom">
+                </div>
+                <div class="lg:tw-space-x-8 lg:tw-ml-6 lg:tw-flex">
+                    <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-indigo-500 tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-900"> Phones </a>
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> T-Shirts </a>
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Girl wears </a>
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Men wears </a>
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Boots </a>
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> LEGO </a>
+                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Shirts </a>
+                </div>
+            </div>
+            <div class="tw-flex-1 tw-flex tw-items-center tw-justify-center tw-px-2 tw-lg:ml-6 tw-lg:justify-end">
+                <div class="tw-w-full tw-max-w-lg tw-ml-4 tw-lg:max-w-xs">
+                    <label for="search" class="tw-sr-only">Search</label>
+                    <div class="tw-relative">
+                        <div class="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-3">
+                            <!-- Heroicon name: solid/search -->
+                            <svg class="tw-h-5 tw-w-5 tw-text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input id="search" name="search" class="tw-leading-5 tw-block tw-w-full tw-rounded-md tw-border tw-border-gray-300 tw-bg-white tw-py-2 tw-pl-10 tw-pr-3 tw-placeholder-gray-500 tw-focus:outline-none tw-focus:placeholder-gray-400 tw-focus:ring-1 tw-focus:ring-indigo-500 tw-focus:border-indigo-500 tw-sm:text-sm" placeholder="Search" type="search">
+                    </div>
+                </div>
+            </div>
+
+            
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button type="button" class="tw-flex tw-items-center tw-justify-center tw-h-6 tw-w-6 tw-flex-shrink-0 tw-rounded-full tw-bg-white tw-p-1 tw-text-gray-400 hover:tw-text-gray-500 focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-offset-2 focus:tw-ring-indigo-500">
+                    <!-- outline/cart -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="tw-w-5 tw-h-5" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+                </button>
+                if (!string.IsNullOrEmpty(pictureUrl))
+                {
+                    // Display the profile image in the navbar
+                    <img src="@pictureUrl" alt="Profile Image" style="width: 32px; height: 32px; border-radius: 50%;" />
+                }
+            } else {
+                <div class="tw-items-center tw-justify-center md:tw-flex md:tw-flex-1 lg:tw-w-0">
+                    <a asp-area="Account" asp-controller="UserAccount" asp-action="Login" class="tw-whitespace-nowrap tw-text-base tw-font-medium tw-text-gray-500 hover:tw-text-gray-900"> Sign in </a>
+                    <a asp-area="Account" asp-controller="UserAccount" asp-action="Register" class="tw-ml-8 tw-inline-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-md tw-border tw-border-transparent tw-bg-indigo-600 tw-px-4 tw-text-base tw-font-medium tw-text-white tw-shadow-sm tw-py-2 hover:tw-bg-indigo-700"> Sign up </a>
+                </div>
+            }
+        </div>
+    </div>
+</nav>

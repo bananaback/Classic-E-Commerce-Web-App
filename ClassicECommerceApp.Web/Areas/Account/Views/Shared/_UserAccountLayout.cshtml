@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ClassicECommerceApp.Web</title>
+    <link rel="stylesheet" href="~/css/tailwind.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/ClassicECommerceApp.Web.styles.css" asp-append-version="true" />
+</head>
+
+<body class="tw-bg-zinc-800 tw-flex tw-flex-col tw-h-screen tw-w-full">
+    <div class="tw-flex tw-flex-col tw-h-full tw-justify-center tw-items-center tw-w-full">
+        <main role="main" class="tw-w-full tw-h-full tw-flex tw-justify-center tw-items-center tw-my-0.5">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

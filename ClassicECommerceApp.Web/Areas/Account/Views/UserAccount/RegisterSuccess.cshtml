@@ -1,0 +1,21 @@
+﻿@{
+	ViewData["Title"] = "Registration Success";
+	var email = ViewData["Email"] ?? "email";
+}
+
+<div class="tw-w-2/3 tw-h-auto tw-bg-white tw-border tw-rounded-lg tw-flex tw-flex-col tw-items-center">
+	<div class="tw-h-64">
+		<img class="tw-h-64" src="~/images/email_green_23345.png" alt="email-green" />
+	</div>
+	<div>
+		<h1 class="tw-font-semibold tw-text-3xl">User Registration Success</h1>
+	</div>
+	<div class="tw-w-1/2 tw-py-5">
+		<p class="tw-text-base tw-text-center">
+			We have sent email to <span class="tw-text-green-600">@email</span> to confirm the validity of your email address. After receiving the email follow the link provided to complete your registration.
+		</p>
+	</div>
+	<div class="tw-border-t tw-h-32 tw-flex tw-items-center tw-justify-center">
+		<p>If you not got any mail <a class="tw-cursor-pointer tw-font-semibold tw-text-blue-500">Resend confirmation mail</a></p>
+	</div>
+</div>
