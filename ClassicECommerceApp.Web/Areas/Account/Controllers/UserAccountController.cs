@@ -5,7 +5,6 @@ using ClassicECommerceApp.Web.Services.Application.AccountServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace ClassicECommerceApp.Web.Areas.Account.Controllers
 {
@@ -222,68 +221,18 @@ namespace ClassicECommerceApp.Web.Areas.Account.Controllers
                 return RedirectToAction(nameof(Login));
             }
 
-            // Gets the external login information for the current login, as an asynchronous operation.
-            var info = await _accountService.GetExternalLoginInfoAsync();
-            if (info == null)
+            var result = await _accountService.ExternalLoginAsync();
+
+            if (result.IsSuccess)
             {
-                _logger.LogError($"No external login info found");
-                return RedirectToAction(nameof(Login));
-            }
-
-            // Extract the picture claim from the external provider
-            var pictureClaim = info.Principal.FindFirstValue("picture");
-            if (pictureClaim == null)
-            {
-                _logger.LogError($"No picture claim found from external provider");
-                // Handle the case where no picture claim is found, if necessary
-            }
-
-            // Sign in user in my app
-            var result = await _accountService.ExternalLoginSignInAsync(info);
-            if (result.Succeeded)
-            {
-                // If the login was successful, add the picture claim to the user
-                if (!string.IsNullOrEmpty(pictureClaim))
-                {
-                    var user = await _accountService.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-                    if (user != null)
-                    {
-                        var claims = new List<Claim> { new Claim("picture", pictureClaim) };
-                        await _accountService.AddClaimsAsync(user, claims);
-
-                        // Refresh the user's sign-in to include the new claim
-                        await _accountService.SignInAsync(user);
-                    }
-                }
-
-                _logger.LogInformation($"Login success");
-                // Redirect to the intended URL after successful login
+                // Redirect to the specified return URL or the home page if not specified
                 return RedirectToLocal(returnUrl);
             }
             else
             {
-                // Login with external provider fail, we need to check if user exists or not
-                bool registerResult = await _accountService.RegisterUserIfNotExistAsync(info);
-
-                if (!registerResult)
-                {
-                    _logger.LogError($"register result failed");
-                    return RedirectToAction(nameof(Login));
-                }
-
-                // Add the picture claim after registration if the user was newly registered
-                var newUser = await _accountService.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
-                if (newUser != null && !string.IsNullOrEmpty(pictureClaim))
-                {
-                    var claims = new List<Claim> { new Claim("picture", pictureClaim) };
-                    await _accountService.AddClaimsAsync(newUser, claims);
-
-                    // Refresh the user's sign-in to include the new claim
-                    await _accountService.SignInAsync(newUser);
-                }
-
-                _logger.LogInformation($"Login success");
-                return RedirectToLocal(returnUrl);
+                // Log the error message if any and redirect to the login page
+                _logger.LogError(result.ErrorMessage);
+                return RedirectToAction(nameof(Login));
             }
         }
 
