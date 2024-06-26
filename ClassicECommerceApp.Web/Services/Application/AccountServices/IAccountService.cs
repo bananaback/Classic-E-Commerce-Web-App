@@ -1,7 +1,6 @@
-﻿using ClassicECommerceApp.Data.Entities;
+﻿using ClassicECommerceApp.Web.Models.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 
 namespace ClassicECommerceApp.Web.Services.Application.AccountServices
 {
@@ -13,11 +12,6 @@ namespace ClassicECommerceApp.Web.Services.Application.AccountServices
         Task<bool> SendPasswordResetEmailAsync(string email);
         Task<bool> ResetUserPasswordAsync(string email, string token, string newPassword);
         AuthenticationProperties ConfigureExternalAuthenticationProperties(string? provider, string? returnUrl);
-        Task<ExternalLoginInfo?> GetExternalLoginInfoAsync();
-        Task<SignInResult> ExternalLoginSignInAsync(ExternalLoginInfo info);
-        Task<bool> RegisterUserIfNotExistAsync(ExternalLoginInfo info);
-        Task<ApplicationUser?> FindByLoginAsync(string loginProvider, string providerKey);
-        Task AddClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims);
-        Task SignInAsync(ApplicationUser user);
+        Task<ExternalLoginResult> ExternalLoginAsync();
     }
 }

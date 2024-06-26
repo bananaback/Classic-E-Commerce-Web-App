@@ -1,5 +1,6 @@
 ﻿using ClassicECommerceApp.Data.Entities;
 using ClassicECommerceApp.Web.Exceptions;
+using ClassicECommerceApp.Web.Models.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -172,72 +173,106 @@ namespace ClassicECommerceApp.Web.Services.Application.AccountServices
             return properties;
         }
 
-        public async Task<ExternalLoginInfo?> GetExternalLoginInfoAsync()
+        public async Task<ExternalLoginResult> ExternalLoginAsync()
         {
-            return await _signInManager.GetExternalLoginInfoAsync();
-        }
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                _logger.LogError("No external login info found");
+                return ExternalLoginResult.NoInfoFailure();
+            }
 
-        public async Task<SignInResult> ExternalLoginSignInAsync(ExternalLoginInfo info)
-        {
-            return await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
-        }
-
-        public async Task<bool> RegisterUserIfNotExistAsync(ExternalLoginInfo info)
-        {
             var email = info.Principal.FindFirstValue(ClaimTypes.Email) ?? "";
-            var user = await _userManager.FindByEmailAsync(email!);
+            var user = await _userManager.FindByEmailAsync(email);
+
             if (user == null)
             {
-                // Create new user if it doesn't exist
-                var newUser = new ApplicationUser { UserName = email, Email = email };
-                var createResult = await _userManager.CreateAsync(newUser);
-
-                if (createResult.Succeeded)
+                var createUserResult = await CreateNewUserAsync(email, info);
+                if (!createUserResult.IsSuccess)
                 {
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                    var emailConfirmed = await _userManager.ConfirmEmailAsync(newUser, token);
-                    var addLoginResult = await _userManager.AddLoginAsync(newUser, info);
-
-                    if (addLoginResult.Succeeded)
+                    return createUserResult;
+                }
+                user = createUserResult.User;
+            }
+            else
+            {
+                var userWithExternalProvider = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+                if (userWithExternalProvider == null)
+                {
+                    var addLoginResult = await AddExternalLoginToUserAsync(user, info);
+                    if (!addLoginResult.IsSuccess)
                     {
-                        await _signInManager.SignInAsync(newUser, isPersistent: false);
-                        return true; // indicate that login success -> redirect in controller
-                    }
-                    else
-                    {
-                        _logger.LogError($"Failed to add external login for user {email}");
-                        return false;
+                        return addLoginResult;
                     }
                 }
-                else
+            }
+
+            // Add picture claim if available
+            await AddPictureClaimAsync(user!, info);
+
+            var loginResult = await SignInUserWithExternalLoginAsync(info);
+            return loginResult;
+        }
+
+        private async Task<ExternalLoginResult> CreateNewUserAsync(string email, ExternalLoginInfo info)
+        {
+            var newUser = new ApplicationUser { UserName = email, Email = email };
+            var createUserResult = await _userManager.CreateAsync(newUser);
+
+            if (!createUserResult.Succeeded)
+            {
+                _logger.LogError($"Failed to create user {email}");
+                return ExternalLoginResult.CreateNewUserFailure();
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            await _userManager.ConfirmEmailAsync(newUser, token);
+
+            var addLoginResult = await AddExternalLoginToUserAsync(newUser, info);
+            return addLoginResult.IsSuccess ? ExternalLoginResult.Success(newUser) : addLoginResult;
+        }
+
+        private async Task<ExternalLoginResult> AddExternalLoginToUserAsync(ApplicationUser user, ExternalLoginInfo info)
+        {
+            var addExternalLoginProviderResult = await _userManager.AddLoginAsync(user, info);
+            if (!addExternalLoginProviderResult.Succeeded)
+            {
+                _logger.LogError($"Failed to add external login for user {user.Email}");
+                return ExternalLoginResult.CreateExternalProviderFailure();
+            }
+            return ExternalLoginResult.Success(user);
+        }
+
+        private async Task<ExternalLoginResult> SignInUserWithExternalLoginAsync(ExternalLoginInfo info)
+        {
+            var loginResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
+            return loginResult.Succeeded ? ExternalLoginResult.Success() : ExternalLoginResult.ExternalLoginFailure();
+        }
+
+        private async Task AddPictureClaimAsync(ApplicationUser user, ExternalLoginInfo info)
+        {
+            var pictureClaim = info.Principal.FindFirstValue("picture") ?? "/images/default-profile-picture.png"; // Use default picture if none found
+
+            var currentClaims = await _userManager.GetClaimsAsync(user);
+            var existingPictureClaim = currentClaims.FirstOrDefault(c => c.Type == "picture");
+
+            if (existingPictureClaim != null)
+            {
+                var replaceClaimResult = await _userManager.ReplaceClaimAsync(user, existingPictureClaim, new Claim("picture", pictureClaim));
+                if (!replaceClaimResult.Succeeded)
                 {
-                    _logger.LogError($"Failed to create user {email}");
-                    return false;
+                    _logger.LogError($"Failed to replace picture claim for user {user.Email}");
                 }
             }
             else
             {
-                _logger.LogWarning($"User {email} exists but failed to sign in due to some reason.");
-                return false;
+                var addClaimResult = await _userManager.AddClaimAsync(user, new Claim("picture", pictureClaim));
+                if (!addClaimResult.Succeeded)
+                {
+                    _logger.LogError($"Failed to add picture claim for user {user.Email}");
+                }
             }
-
         }
 
-        public async Task<ApplicationUser?> FindByLoginAsync(string loginProvider, string providerKey)
-        {
-            // Find user by external login provider and provider key
-            return await _userManager.FindByLoginAsync(loginProvider, providerKey);
-        }
-
-        public async Task AddClaimsAsync(ApplicationUser user, IEnumerable<Claim> claims)
-        {
-            // Add claims to the user
-            await _userManager.AddClaimsAsync(user, claims);
-        }
-        public async Task SignInAsync(ApplicationUser user)
-        {
-            // Sign in the user again to refresh the claims in the current session
-            await _signInManager.RefreshSignInAsync(user);
-        }
     }
 }
