@@ -89,34 +89,34 @@
 				</div>
 				<!-- External login buttons -->
 				<div class="tw-flex tw-w-full">
-					<div class="tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9">
-						Google
-						<div class="">
-							<svg role="img" height="24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
-								<defs>
-									<path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path>
-								</defs>
-								<clipPath id="b">
-									<use xlink:href="#a" overflow="visible">
+					<form asp-controller="UserAccount" asp-action="ExternalRegister" asp-route-provider="Google" method="post" class="tw-cursor-pointer tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9 hover:tw-bg-blue-200">
+						@Html.AntiForgeryToken()
+						<button type="submit" class="tw-flex tw-justify-between">
+							Google
+							<div class="tw-ml-2">
+								<svg role="img" height="24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48">
+									<defs>
+										<path id="a" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path>
+									</defs>
+									<clipPath id="b">
+										<use xlink:href="#a" overflow="visible"></use>
+									</clipPath>
+									<path clip-path="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z"></path>
+									<path clip-path="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z"></path>
+									<path clip-path="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z"></path>
+									<path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"></path>
+								</svg>
+							</div>
+						</button>
+					</form>
 
-									</use>
-								</clipPath>
-								<path clip-path="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z">
-
-								</path>
-								<path clip-path="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z">
-
-								</path><path clip-path="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z">
-
-								</path>
-								<path clip-path="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z"></path>
-							</svg>
-						</div>
-					</div>
-					<div class="tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9">
-						Facebook
-						<div class=""><svg width="17" height="20" viewBox="0 0 17 20" fill="#0080ff" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_196_3851)"><path d="M5.7982 11.7172H8.20975V21.6452C8.20975 21.8412 8.36858 22 8.56459 22H12.6535C12.8495 22 13.0083 21.8412 13.0083 21.6452V11.764H15.7806C15.9608 11.764 16.1125 11.6287 16.1331 11.4497L16.5541 7.79467C16.5657 7.69411 16.5338 7.59341 16.4666 7.51797C16.3992 7.44246 16.3028 7.39924 16.2017 7.39924H13.0084V5.10812C13.0084 4.41746 13.3803 4.06723 14.1138 4.06723C14.2184 4.06723 16.2017 4.06723 16.2017 4.06723C16.3977 4.06723 16.5566 3.90834 16.5566 3.71239V0.357465C16.5566 0.161452 16.3977 0.00262581 16.2017 0.00262581H13.3243C13.304 0.00163226 13.259 0 13.1925 0C12.6933 0 10.9579 0.0980064 9.58709 1.3591C8.06824 2.7566 8.27937 4.42988 8.32983 4.71999V7.39917H5.7982C5.60219 7.39917 5.44336 7.55799 5.44336 7.75401V11.3623C5.44336 11.5583 5.60219 11.7172 5.7982 11.7172Z" fill="#0080ff"></path></g><defs><clipPath id="clip0_196_3851"><rect width="22" height="22" fill="white"></rect></clipPath></defs></svg></div>
-					</div>
+					<form asp-controller="UserAccount" asp-action="ExternalRegister" asp-route-provider="Facebook" method="post" class="tw-cursor-pointer tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9 hover:tw-bg-blue-200">
+						@Html.AntiForgeryToken()
+						<button type="submit" class="tw-flex tw-justify-between">
+							Facebook
+							<div class="tw-ml-2"><svg width="17" height="20" viewBox="0 0 17 20" fill="#0080ff" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_196_3851)"><path d="M5.7982 11.7172H8.20975V21.6452C8.20975 21.8412 8.36858 22 8.56459 22H12.6535C12.8495 22 13.0083 21.8412 13.0083 21.6452V11.764H15.7806C15.9608 11.764 16.1125 11.6287 16.1331 11.4497L16.5541 7.79467C16.5657 7.69411 16.5338 7.59341 16.4666 7.51797C16.3992 7.44246 16.3028 7.39924 16.2017 7.39924H13.0084V5.10812C13.0084 4.41746 13.3803 4.06723 14.1138 4.06723C14.2184 4.06723 16.2017 4.06723 16.2017 4.06723C16.3977 4.06723 16.5566 3.90834 16.5566 3.71239V0.357465C16.5566 0.161452 16.3977 0.00262581 16.2017 0.00262581H13.3243C13.304 0.00163226 13.259 0 13.1925 0C12.6933 0 10.9579 0.0980064 9.58709 1.3591C8.06824 2.7566 8.27937 4.42988 8.32983 4.71999V7.39917H5.7982C5.60219 7.39917 5.44336 7.55799 5.44336 7.75401V11.3623C5.44336 11.5583 5.60219 11.7172 5.7982 11.7172Z" fill="#0080ff"></path></g><defs><clipPath id="clip0_196_3851"><rect width="22" height="22" fill="white"></rect></clipPath></defs></svg></div>
+						</button>
+					</form>
 				</div>
 				<div class="tw-text-gray-400">
 					OR

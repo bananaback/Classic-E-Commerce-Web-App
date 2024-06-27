@@ -51,8 +51,21 @@
                 </button>
                 if (!string.IsNullOrEmpty(pictureUrl))
                 {
-                    // Display the profile image in the navbar
-                    <img src="@pictureUrl" alt="Profile Image" style="width: 32px; height: 32px; border-radius: 50%;" />
+                    <div class="dropdown tw-relative">
+                        <img class="tw-cursor-pointer tw-mx-4 tw-rounded-full tw-w-8 tw-h-8 hover:tw-border-2 hover:tw-border-blue-500" src="@pictureUrl" alt="Profile Image" />
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu tw-absolute tw-right-0 tw-w-40 tw-bg-white tw-border tw-border-gray-200 tw-rounded-md tw-shadow-lg tw-hidden tw-z-10">
+                            <a href="#" class="tw-block tw-px-4 tw-py-2 tw-text-gray-800 hover:tw-bg-gray-100">Profile</a>
+                            <a href="#" class="tw-block tw-px-4 tw-py-2 tw-text-gray-800 hover:tw-bg-gray-100">Settings</a>
+                            <form asp-area="Account" asp-controller="UserAccount" asp-action="Logout" method="post" class="tw-block tw-px-4 tw-py-2 tw-text-gray-800 hover:tw-bg-gray-100">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="tw-flex tw-justify-between">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
                 }
             } else {
                 <div class="tw-items-center tw-justify-center md:tw-flex md:tw-flex-1 lg:tw-w-0">

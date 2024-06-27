@@ -16,3 +16,8 @@
 .active, .dot:hover {
     background-color: #717171;
 }
+
+.dropdown:hover .dropdown-menu,
+.dropdown-menu:hover {
+    display: block;
+}

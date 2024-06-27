@@ -77,6 +77,34 @@ builder.Services
             }
             return Task.CompletedTask;
         };
+        googleOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
+        {
+            // Always prompt the user to choose their account
+            context.Response.Redirect(context.RedirectUri + "&prompt=select_account");
+            return Task.CompletedTask;
+        };
+    })
+    .AddFacebook(facebookOptions =>
+    {
+        facebookOptions.AppId = authenticationConfiguration.Facebook.ClientId;
+        facebookOptions.AppSecret = authenticationConfiguration.Facebook.ClientSecret;
+        facebookOptions.Fields.Add("picture");
+        facebookOptions.Events.OnCreatingTicket = (context) =>
+        {
+            var picture = context.User.GetProperty("picture").GetProperty("data").GetProperty("url").ToString();
+            if (picture != null)
+            {
+                context.Identity?.AddClaim(new Claim("picture", picture));
+            }
+
+            return Task.CompletedTask;
+        };
+        facebookOptions.Events.OnRedirectToAuthorizationEndpoint = context =>
+        {
+            // Always prompt the user to choose their Facebook account
+            context.Response.Redirect(context.RedirectUri + "&auth_type=reauthenticate");
+            return Task.CompletedTask;
+        };
     });
 
 var app = builder.Build();
