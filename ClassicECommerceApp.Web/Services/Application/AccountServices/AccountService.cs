@@ -274,5 +274,10 @@ namespace ClassicECommerceApp.Web.Services.Application.AccountServices
             }
         }
 
+        public async Task LogUserOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
     }
 }

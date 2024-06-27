@@ -1,6 +1,8 @@
 ﻿@{
 	@model ClassicECommerceApp.Web.Areas.Account.Models.LoginViewModel
+	string? returnUrl = Context.Request.Query["ReturnUrl"];
 }
+
 
 <div class="tw-flex tw-items-center tw-justify-center tw-w-2/3 tw-h-full tw-bg-zinc-800 tw-my-1">
 	<div class="tw-h-full tw-flex-grow tw-basis-7/12 tw-flex tw-items-center tw-justify-center">
@@ -88,8 +90,10 @@
 				</div>
 				<!-- External login buttons -->
 				<div class="tw-flex tw-w-full">
-					<form asp-controller="UserAccount" asp-action="ExternalLogin" asp-route-provider="Google" method="post" class="tw-cursor-pointer tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9">
+					<form asp-controller="UserAccount" asp-action="ExternalLogin" asp-route-provider="Google" method="post" class="tw-cursor-pointer tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9 hover:tw-bg-blue-200">
 						@Html.AntiForgeryToken()
+						<input type="hidden" name="returnUrl" value="@returnUrl" />
+
 						<button type="submit" class="tw-flex tw-justify-between">
 							Google
 							<div class="tw-ml-2">
@@ -109,7 +113,7 @@
 						</button>
 					</form>
 
-					<form asp-controller="UserAccount" asp-action="ExternalLogin" asp-route-provider="Facebook" method="post" class="tw-cursor-pointer tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9">
+					<form asp-controller="UserAccount" asp-action="ExternalLogin" asp-route-provider="Facebook" method="post" class="tw-cursor-pointer tw-font-semibold tw-flex-1 tw-border tw-border-neutral-600 tw-rounded-lg tw-mx-1 tw-h-10 tw-flex tw-items-center tw-justify-center tw-gap-9 hover:tw-bg-blue-200">
 						@Html.AntiForgeryToken()
 						<button type="submit" class="tw-flex tw-justify-between">
 							Facebook
