@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Account\Views\UserAccount\EmailConfirmed.cshtml" />
+    <Content Remove="wwwroot\js\category-tree.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,7 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Account\Views\UserAccount\EmailConfirmed.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Account\Views\UserAccount\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\category-tree.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +40,12 @@
 
   <ItemGroup>
     <None Include="Areas\Account\Views\UserAccount\EmailConfirmed.cshtml" />
+    <None Include="wwwroot\js\category-tree.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Shop\Views\Category\" />
+    <Folder Include="Areas\Shop\Views\Shared\" />
   </ItemGroup>
 
 </Project>

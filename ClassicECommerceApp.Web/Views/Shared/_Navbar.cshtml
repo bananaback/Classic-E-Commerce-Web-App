@@ -10,22 +10,14 @@
         <div class="tw-flex tw-h-16 tw-justify-between tw-items-center">
             <div class="tw-flex tw-px-2 lg:tw-px-0">
                 <div class="tw-flex-shrink-0 tw-flex tw-items-center">
-                    <img class="tw-block tw-h-8 tw-w-auto lg:tw-hidden" src="~/images/circle_bananaback.png" alt="ClassicECom">
-                    <img class="tw-hidden tw-h-8 tw-w-auto lg:tw-block" src="~/images/circle_bananaback.png" alt="ClassicECom">
+                    <img class="tw-px-4 tw-block tw-h-8 tw-w-auto lg:tw-hidden" src="~/images/circle_bananaback.png" alt="ClassicECom">
+                    <img class="tw-px-4 tw-hidden tw-h-8 tw-w-auto lg:tw-block" src="~/images/circle_bananaback.png" alt="ClassicECom">
                 </div>
-                <div class="lg:tw-space-x-8 lg:tw-ml-6 lg:tw-flex">
-                    <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-indigo-500 tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-900"> Phones </a>
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> T-Shirts </a>
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Girl wears </a>
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Men wears </a>
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Boots </a>
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> LEGO </a>
-                    <a href="#" class="tw-border-b-2 tw-inline-flex tw-items-center tw-border-transparent tw-px-1 tw-pt-1 tw-text-sm tw-font-medium tw-text-gray-500 hover:tw-border-gray-300 hover:tw-text-gray-700"> Shirts </a>
-                </div>
+
+                
             </div>
-            <div class="tw-flex-1 tw-flex tw-items-center tw-justify-center tw-px-2 tw-lg:ml-6 tw-lg:justify-end">
-                <div class="tw-w-full tw-max-w-lg tw-ml-4 tw-lg:max-w-xs">
+            <div class="tw-flex-1 tw-flex tw-items-center tw-justify-center tw-px-2 lg:tw-justify-end">
+                <div class="tw-w-full tw-ml-4">
                     <label for="search" class="tw-sr-only">Search</label>
                     <div class="tw-relative">
                         <div class="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-3">
@@ -68,7 +60,7 @@
                     
                 }
             } else {
-                <div class="tw-items-center tw-justify-center md:tw-flex md:tw-flex-1 lg:tw-w-0">
+                <div class="tw-flex tw-flex-1 tw-items-center tw-justify-end">
                     <a asp-area="Account" asp-controller="UserAccount" asp-action="Login" class="tw-whitespace-nowrap tw-text-base tw-font-medium tw-text-gray-500 hover:tw-text-gray-900"> Sign in </a>
                     <a asp-area="Account" asp-controller="UserAccount" asp-action="Register" class="tw-ml-8 tw-inline-flex tw-items-center tw-justify-center tw-whitespace-nowrap tw-rounded-md tw-border tw-border-transparent tw-bg-indigo-600 tw-px-4 tw-text-base tw-font-medium tw-text-white tw-shadow-sm tw-py-2 hover:tw-bg-indigo-700"> Sign up </a>
                 </div>
@@ -76,3 +68,10 @@
         </div>
     </div>
 </nav>
+<div class="tw-w-full tw-flex tw-justify-center">
+    <div class="root-categories tw-relative tw-h-12 tw-w-full tw-bg-blue-200">
+        <ul class="tw-relative tw-flex tw-h-full tw-flex-row tw-items-center tw-justify-center tw-font-semibold tw-text-black">
+            <!-- Add list items here -->
+        </ul>
+    </div>
+</div>
