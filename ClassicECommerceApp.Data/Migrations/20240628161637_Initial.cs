@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ClassicECommerceApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,24 @@ namespace ClassicECommerceApp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "product_category",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    parent_category_id = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    category_name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_product_category", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_ProductCategory_ParentCategory",
+                        column: x => x.parent_category_id,
+                        principalTable: "product_category",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -189,11 +207,23 @@ namespace ClassicECommerceApp.Data.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Email",
+                table: "AspNetUsers",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_category_parent_category_id",
+                table: "product_category",
+                column: "parent_category_id");
         }
 
         /// <inheritdoc />
@@ -213,6 +243,9 @@ namespace ClassicECommerceApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "product_category");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
