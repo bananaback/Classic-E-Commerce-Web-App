@@ -1,0 +1,32 @@
+﻿@model ClassicECommerceApp.Web.Models.ViewModels.ProductViewModel
+
+<div class="tw-select-none tw-mx-16 tw-m-4 tw-w-96 tw-h-96 tw-my-8 tw-rounded-md tw-border-2 tw-border-gray-200">
+	<div class="tw-w-full tw-flex tw-flex-row tw-mt-16 tw-mb-8">
+		<!-- Product images -->
+		<div class="tw-h-64 tw-flex-1 tw-relative">
+			<!-- This is the absolute-->
+			<div class="tw-flex tw-flex-col tw-items-center tw-justify-start tw-rounded-lg -tw-left-8 tw-w-full tw-h-60 tw-bg-lime-400 tw-absolute">
+				<div class="tw-h-36 tw-flex tw-justify-between tw-w-4/5 tw-my-2">
+					<svg xmlns="http://www.w3.org/2000/svg" class="tw-w-6 tw-h-6" viewBox="0 -960 960 960" fill="#e8eaed"><path d="M720-80q-50 0-85-35t-35-85q0-7 1-14.5t3-13.5L322-392q-17 15-38 23.5t-44 8.5q-50 0-85-35t-35-85q0-50 35-85t85-35q23 0 44 8.5t38 23.5l282-164q-2-6-3-13.5t-1-14.5q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35q-23 0-44-8.5T638-672L356-508q2 6 3 13.5t1 14.5q0 7-1 14.5t-3 13.5l282 164q17-15 38-23.5t44-8.5q50 0 85 35t35 85q0 50-35 85t-85 35Zm0-640q17 0 28.5-11.5T760-760q0-17-11.5-28.5T720-800q-17 0-28.5 11.5T680-760q0 17 11.5 28.5T720-720ZM240-440q17 0 28.5-11.5T280-480q0-17-11.5-28.5T240-520q-17 0-28.5 11.5T200-480q0 17 11.5 28.5T240-440Zm480 280q17 0 28.5-11.5T760-200q0-17-11.5-28.5T720-240q-17 0-28.5 11.5T680-200q0 17 11.5 28.5T720-160Zm0-600ZM240-480Zm480 280Z" /></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" class="tw-w-6 tw-h-6" viewBox="0 -960 960 960" fill="#e8eaed"><path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" /></svg>
+				</div>
+				<div class="tw-w-full tw-h-96 tw-absolute -tw-left-8 tw-top-8">
+					<img src=@Model.ImageUrls.First() alt="product-image" />
+				</div>
+
+			</div>
+		</div>
+		<!-- Product info -->
+		<div class="tw-flex-1 tw-flex tw-flex-col tw-justify-start tw-pr-8">
+			<h3 class="tw-font-bold tw-text-gray-600 tw-text-xl">@Model.Name</h3>
+			<span class="tw-my-4 tw-text-red-500 tw-text-5xl">@Model.Price.ToString("C")</span>
+			<h5 class="tw-text-gray-400 tw-text-xs">SELECT A COLOR</h5>
+
+			<h5 class="tw-text-gray-400 tw-text-xs">BENEFITS</h5>
+
+			<p>@Model.Description</p>
+			<button class="tw-my-8 tw-bg-red-500 tw-rounded-lg tw-py-4 tw-px-8 tw-font-bold tw-text-sm tw-text-white">ADD TO CART</button>
+		</div>
+
+	</div>
+</div>

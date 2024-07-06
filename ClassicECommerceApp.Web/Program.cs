@@ -4,6 +4,7 @@ using ClassicECommerceApp.Data.Repositories.ProductCategoryRepositories;
 using ClassicECommerceApp.Web.Models.Configs;
 using ClassicECommerceApp.Web.Services.Application.AccountServices;
 using ClassicECommerceApp.Web.Services.Application.CategoryServices;
+using ClassicECommerceApp.Web.Services.Application.ProductServices;
 using ClassicECommerceApp.Web.Services.External.EmailServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+builder.Services.AddScoped<IProductService, MockProductService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
