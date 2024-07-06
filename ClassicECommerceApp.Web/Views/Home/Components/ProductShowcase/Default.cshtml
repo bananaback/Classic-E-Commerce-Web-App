@@ -1,0 +1,13 @@
+﻿@using ClassicECommerceApp.Web.Models.ViewModels
+@model ProductShowcaseViewModel
+
+<section class="tw-border-black tw-w-full tw-flex tw-flex-col tw-items-center">
+	<h2 class="tw-text-4xl tw-font-semibold tw-my-4">@Model.Title</h2>
+	<div class="product-flex tw-flex">
+		@foreach (var product in Model.Products)
+		{
+			@await Html.PartialAsync("_ProductCard", product)
+		}
+	</div>
+	
+</section>
